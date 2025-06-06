@@ -1,11 +1,15 @@
 {
   "applinks": {
-    "apps":[],
+    "apps": [],
     "details": [
       {
-        "appID": "JM56XFTHH7.com.Uidai.mAadhaar",
-        "paths": [ "/mypath/" ]
-        
+        "appIDs": ["TEAM_ID.com.yourapp.identifier"],
+        "components": [
+          {
+            "/": "/mypath",
+            "comment": "Handles Universal Link for your app"
+          }
+        ]
       }
     ]
   }
