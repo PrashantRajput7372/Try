@@ -1,22 +1,26 @@
 import React from "react";
 
-function App() {
-  const path = window.location.pathname;
-
-  if (path === "/mypath") {
-    return <div>Opening App…</div>;
-  }
-
-  const handleOpen = () => {
-    window.location.href = "https://otp-frontend-seven.vercel.app/mypath";
+export default function App() {
+  const handleOpenApp = () => {
+    window.location.href = "https://your-domain.com/mypath"; // Update this with your domain
   };
 
   return (
     <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>Home Page</h1>
-      <button onClick={handleOpen}>Open IOS App</button>
+      <h1>Universal Link Test</h1>
+      <button
+        onClick={handleOpenApp}
+        style={{
+          backgroundColor: "#007bff",
+          color: "white",
+          padding: "10px 20px",
+          fontSize: "18px",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Open iOS App
+      </button>
     </div>
   );
 }
-
-export default App;
