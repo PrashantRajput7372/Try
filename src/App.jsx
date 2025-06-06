@@ -14,7 +14,7 @@ function App() {
   return (
     <div style={{ padding: "40px", textAlign: "center" }}>
       <h1>Home Page</h1>
-      <button onClick={handleOpen}>Open App MahaDEV SAMBHU TRIPURARI</button>
+      <button onClick={handleOpen}>Open IOS App</button>
     </div>
   );
 }
