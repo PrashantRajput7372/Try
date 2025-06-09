@@ -3,13 +3,8 @@
     "apps": [],
     "details": [
       {
-        "appIDs": ["TEAM_ID.com.yourapp.identifier"],
-        "components": [
-          {
-            "/": "/mypath",
-            "comment": "Handles Universal Link for your app"
-          }
-        ]
+        "appID": "J287W8AHQ3.com.Uidai.mAadhaar",
+        "paths": ["*"]
       }
     ]
   }
