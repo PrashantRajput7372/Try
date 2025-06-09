@@ -2,7 +2,7 @@ import React from "react";
 
 export default function App() {
   const handleOpenApp = () => {
-    window.location.href = "https://try-ecru-two.vercel.app//mypath"; // Update this with your domain
+    window.location.href = "https://try-ecru-two.vercel.app/mypath"; // Update this with your domain
      // window.location.href = "maadhaar://"; // Update this with your domain
   };
 
