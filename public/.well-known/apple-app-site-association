@@ -3,9 +3,20 @@
     "apps": [],
     "details": [
       {
-        "appID": "JM56XFTHH7.com.Uidai.mAadhaar",
-        "paths": ["*"]
+        "appID": "J287W8AHQ3.com.Uidai.mAadhaar", // GL9CUKCLZ8.com.example.myapp
+        "paths": [
+          "*" // you can use wildcard to accept any route like ["*"] 
+           }
+       ]
+   }
+}
+        ]
       }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+     "J287W8AHQ3.com.Uidai.mAadhaar"
     ]
   }
 }
