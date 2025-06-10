@@ -15,26 +15,32 @@ const MobilePrompt = () => {
   }, [device]);
 
   const handleOpenApp = () => {
+    const appStoreUrl = "https://apps.apple.com/app/instagram/id389801252";
+    const appSchemeUrl = "instagram://";
+
     if (platform === "Android") {
-      // Try opening Instagram on Android
       window.location.href =
         "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
     } else if (platform === "iOS") {
-      const timeout = 2000;
-      const fallbackUrl = "https://apps.apple.com/app/instagram/id389801252";
-      const appUrl = "instagram://";
+      const timeout = setTimeout(() => {
+        window.location.href = appStoreUrl;
+      }, 2500); // 👈 Give app ~2.5s to respond
 
-      // 🔒 Create an iframe to try opening the app (Safari-safe)
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = appUrl;
-      document.body.appendChild(iframe);
+      // Must be triggered by user interaction to avoid popup block
+      window.location = appSchemeUrl;
 
-      // ⏱ If app doesn’t open, fallback after a delay
-      setTimeout(() => {
-        document.body.removeChild(iframe);
-        window.location.href = fallbackUrl;
-      }, timeout);
+      // Optional: clear the timeout if user switches away (visibility changes)
+      const handleVisibilityChange = () => {
+        if (document.hidden) {
+          clearTimeout(timeout); // user switched to Instagram app
+          document.removeEventListener(
+            "visibilitychange",
+            handleVisibilityChange
+          );
+        }
+      };
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
     } else {
       alert("App link not available for your device");
     }
