@@ -48,11 +48,17 @@ const MobilePrompt = ({ device, platform }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          maxWidth: "600px",
+          width: "90%",
+          margin: "0 auto",
+          borderTopLeftRadius: "12px",
+          borderTopRightRadius: "12px",
         }}
       >
         <div style={{ fontSize: "18px", fontWeight: "bold" }}>
           For a better experience, use the app
         </div>
+
         <div
           style={{
             display: "flex",
@@ -60,12 +66,19 @@ const MobilePrompt = ({ device, platform }) => {
             marginTop: "12px",
             width: "100%",
             justifyContent: "center",
+            flexWrap: "wrap",
           }}
         >
           <Button
             variant="contained"
             color="primary"
-            style={{ width: "40%" }}
+            style={{
+              flex: "1",
+              minWidth: "140px",
+              maxWidth: "250px",
+              padding: "8px",
+              fontSize: "16px",
+            }}
             onClick={handleOpenApp}
           >
             Use App
@@ -73,7 +86,13 @@ const MobilePrompt = ({ device, platform }) => {
           <Button
             variant="outlined"
             color="secondary"
-            style={{ width: "40%" }}
+            style={{
+              flex: "1",
+              minWidth: "140px",
+              maxWidth: "250px",
+              padding: "8px",
+              fontSize: "16px",
+            }}
             onClick={handleClose}
           >
             Continue in Web

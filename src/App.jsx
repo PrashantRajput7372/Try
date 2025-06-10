@@ -1,21 +1,25 @@
 import React from "react";
-import useDeviceDetection from "../components/DeviceDetection";
+
 import MobilePrompt from "./MobilePrompt";
 
 function App() {
-  const { device, platform } = useDeviceDetection();
+  const path = window.location.pathname;
 
-  console.log(`Device: ${device}`);
-  console.log(`Platform: ${platform}`);
+  if (path === "/mypath") {
+    return <div>Opening App…</div>;
+  }
+
+  const handleOpen = () => {
+    window.location.href = "https://otp-frontend-seven.vercel.app/mypath";
+  };
 
   return (
     <>
       <div style={{ padding: "40px", textAlign: "center" }}>
         <h1>Home Page</h1>
+        <button onClick={handleOpen}>Open App MahaDEV SAMBHU TRIPURARI</button>
       </div>
-
-      {/* Pass detected device & platform to MobilePrompt */}
-      <MobilePrompt device={device} platform={platform} />
+      <MobilePrompt />
     </>
   );
 }
