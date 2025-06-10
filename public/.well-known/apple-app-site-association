@@ -1,11 +1,10 @@
 {
   "applinks": {
-    "apps":[],
+    "apps": [],
     "details": [
       {
-        "appID": "JM56XFTHH7.com.Uidai.mAadhaar",
-        "paths": [ "/mypath/" ]
-        
+        "appID": "J287W8AHQ3.demo.universalLinkDemo",
+        "paths": [ "/" ]
       }
     ]
   }
