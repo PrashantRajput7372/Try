@@ -35,52 +35,71 @@ const MobilePrompt = ({ device, platform }) => {
 
   return (
     <Modal open={openModal} onClose={handleClose}>
-      <div
+  <div
+    style={{
+      position: "fixed",
+      bottom: "0",
+      left: "0",
+      width: "100%",
+      backgroundColor: "#1c1c1c",
+      color: "white",
+      padding: "16px",
+      textAlign: "center",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      maxWidth: "600px",
+      width: "90%",
+      margin: "0 auto",
+      borderTopLeftRadius: "12px",
+      borderTopRightRadius: "12px",
+    }}
+  >
+    <div style={{ fontSize: "18px", fontWeight: "bold" }}>
+      For a better experience, use the app
+    </div>
+    
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        gap: "12px",
+        marginTop: "12px",
+        width: "100%",
+        justifyContent: "center",
+        flexWrap: "wrap",
+      }}
+    >
+      <Button
+        variant="contained"
+        color="primary"
         style={{
-          position: "fixed",
-          bottom: "0",
-          left: "0",
-          width: "100%",
-          backgroundColor: "#1c1c1c",
-          color: "white",
-          padding: "16px",
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          flex: "1",
+          minWidth: "140px",
+          maxWidth: "250px",
+          padding: "8px",
         }}
+        onClick={handleOpenApp}
       >
-        <div style={{ fontSize: "18px", fontWeight: "bold" }}>
-          For a better experience, use the app
-        </div>
-        <div
-          style={{
-            display: "flex",
-            gap: "12px",
-            marginTop: "12px",
-            width: "100%",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ width: "40%" }}
-            onClick={handleOpenApp}
-          >
-            Use App
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            style={{ width: "40%" }}
-            onClick={handleClose}
-          >
-            Continue in Web
-          </Button>
-        </div>
-      </div>
-    </Modal>
+        Use App
+      </Button>
+      <Button
+        variant="outlined"
+        color="secondary"
+        style={{
+          flex: "1",
+          minWidth: "140px",
+          maxWidth: "250px",
+          padding: "8px",
+        }}
+        onClick={handleClose}
+      >
+        Continue in Web
+      </Button>
+    </div>
+  </div>
+</Modal>
+
   );
 };
 
