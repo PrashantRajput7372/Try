@@ -15,35 +15,33 @@ const MobilePrompt = () => {
   }, [device]);
 
   const handleOpenApp = () => {
-    const appStoreUrl = "https://apps.apple.com/app/instagram/id389801252";
-    const appSchemeUrl = "instagram://";
+    // const appStoreUrl = "https://apps.apple.com/app/instagram/id389801252";
+    // const appSchemeUrl = "instagram://";
 
     if (platform === "Android") {
       window.location.href =
         "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
     } else if (platform === "iOS") {
       const now = Date.now();
-      let didHide = false;
+      let hidden = false;
 
       const onVisibilityChange = () => {
-        if (document.hidden) {
-          didHide = true;
-          clearTimeout(fallbackTimer);
-          document.removeEventListener("visibilitychange", onVisibilityChange);
-        }
+        hidden = document.hidden;
       };
 
       document.addEventListener("visibilitychange", onVisibilityChange);
 
-      // Try to open the app
-      window.location.href = appSchemeUrl;
+      // Open Instagram app
+      window.location.href = "instagram://";
 
-      // If visibility doesn't change, fallback to App Store
-      const fallbackTimer = setTimeout(() => {
-        if (!didHide && Date.now() - now < 3000) {
-          window.location.href = appStoreUrl;
+      // Fallback to App Store if app didn’t open
+      setTimeout(() => {
+        document.removeEventListener("visibilitychange", onVisibilityChange);
+        if (!hidden && Date.now() - now < 4000) {
+          window.location.href =
+            "https://apps.apple.com/app/instagram/id389801252";
         }
-      }, 2000); // or try 2500ms if needed
+      }, 3000); // or try 3000ms if needed
     } else {
       alert("App link not available for your device");
     }
