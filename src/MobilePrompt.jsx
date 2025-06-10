@@ -20,13 +20,25 @@ const MobilePrompt = () => {
       window.location.href =
         "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
     } else if (platform === "iOS") {
-      // Try to open Instagram app
+      const now = Date.now();
+      let hidden = false;
+
+      const onVisibilityChange = () => {
+        hidden = document.hidden;
+      };
+
+      document.addEventListener("visibilitychange", onVisibilityChange);
+
+      // Try to open the app
       window.location.href = "instagram://";
 
-      // After short delay, redirect to App Store (fallback)
+      // Fallback to App Store if app didn’t open
       setTimeout(() => {
-        window.location.href =
-          "https://apps.apple.com/app/instagram/id389801252";
+        document.removeEventListener("visibilitychange", onVisibilityChange);
+        if (!hidden && Date.now() - now < 3000) {
+          window.location.href =
+            "https://apps.apple.com/app/instagram/id389801252";
+        }
       }, 1500);
     } else {
       alert("App link not available for your device");
