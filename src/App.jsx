@@ -1,44 +1,13 @@
-
 import React from "react";
+import OpenInAppModal from "./OpenInAppModal";
 
-export default function App() {
-  const handleOpenApp = () => {
-    window.location.href = "https://try-ecru-two.vercel.app/Mypath"; // Update this with your domain
-     
-  };
- const handleCustomSchema = () => {
-   
-     window.location.href = "maadhaar://"; // Update this with your domain
-  };
+function App() {
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>Universal Link Test</h1>
-      <button
-        onClick={handleOpenApp}
-        style={{
-          backgroundColor: "#007bff",
-          color: "white",
-          padding: "10px 20px",
-          fontSize: "18px",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Open iOS App
-      </button>
-       <button
-        onClick={handleCustomSchema}
-        style={{
-          backgroundColor: "#007bff",
-          color: "white",
-          padding: "10px 20px",
-          fontSize: "18px",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        custom schema button
-      </button>
+    <div>
+      <h1>Welcome to My Universal Link Demo</h1>
+      <OpenInAppModal />
     </div>
   );
 }
+
+export default App;
