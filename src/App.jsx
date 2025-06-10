@@ -5,8 +5,8 @@ import MobilePrompt from "./MobilePrompt";
 function App() {
   const { device, platform } = useDeviceDetection();
 
-  // console.log(`Device: ${device}`);
-  // console.log(`Platform: ${platform}`);
+  console.log(`Device: ${device}`);
+  console.log(`Platform: ${platform}`);
 
   return (
     <>
