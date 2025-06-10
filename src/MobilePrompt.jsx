@@ -22,25 +22,28 @@ const MobilePrompt = () => {
       window.location.href =
         "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
     } else if (platform === "iOS") {
-      const timeout = setTimeout(() => {
-        window.location.href = appStoreUrl;
-      }, 2500); // 👈 Give app ~2.5s to respond
+      const now = Date.now();
+      let didHide = false;
 
-      // Must be triggered by user interaction to avoid popup block
-      window.location = appSchemeUrl;
-
-      // Optional: clear the timeout if user switches away (visibility changes)
-      const handleVisibilityChange = () => {
+      const onVisibilityChange = () => {
         if (document.hidden) {
-          clearTimeout(timeout); // user switched to Instagram app
-          document.removeEventListener(
-            "visibilitychange",
-            handleVisibilityChange
-          );
+          didHide = true;
+          clearTimeout(fallbackTimer);
+          document.removeEventListener("visibilitychange", onVisibilityChange);
         }
       };
 
-      document.addEventListener("visibilitychange", handleVisibilityChange);
+      document.addEventListener("visibilitychange", onVisibilityChange);
+
+      // Try to open the app
+      window.location.href = appSchemeUrl;
+
+      // If visibility doesn't change, fallback to App Store
+      const fallbackTimer = setTimeout(() => {
+        if (!didHide && Date.now() - now < 3000) {
+          window.location.href = appStoreUrl;
+        }
+      }, 2000); // or try 2500ms if needed
     } else {
       alert("App link not available for your device");
     }
