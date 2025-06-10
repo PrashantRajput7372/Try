@@ -29,17 +29,17 @@ const MobilePrompt = () => {
 
       document.addEventListener("visibilitychange", onVisibilityChange);
 
-      // Try to open the app
+      // Open Instagram app
       window.location.href = "instagram://";
 
       // Fallback to App Store if app didn’t open
       setTimeout(() => {
         document.removeEventListener("visibilitychange", onVisibilityChange);
-        if (!hidden && Date.now() - now < 3000) {
+        if (!hidden && Date.now() - now < 4000) {
           window.location.href =
             "https://apps.apple.com/app/instagram/id389801252";
         }
-      }, 1500);
+      }, 3000);
     } else {
       alert("App link not available for your device");
     }
