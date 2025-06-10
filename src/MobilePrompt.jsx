@@ -1,29 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "@mui/material";
+import useDeviceDetection from "../components/DeviceDetection";
 
-const MobilePrompt = ({ device, platform }) => {
+const MobilePrompt = () => {
+  const { device, platform } = useDeviceDetection();
   const [openModal, setModal] = useState(false);
 
   useEffect(() => {
-    console.log("Received Device:", device);
-    console.log("Received Platform:", platform);
-
     if (device === "Mobile") {
       setModal(true);
     } else {
-      setModal(false);
+      setModal(false); // ✅ Close modal if not mobile
     }
   }, [device]);
 
   const handleOpenApp = () => {
     if (platform === "Android") {
-      // WhatsApp deep link with fallback to Play Store
+      // Try opening Instagram on Android
       window.location.href =
-        "intent://send?text=Hello#Intent;scheme=whatsapp;package=com.whatsapp;end";
+        "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
     } else if (platform === "iOS") {
-      // WhatsApp fallback for iOS
-      window.location.href =
-        "https://apps.apple.com/us/app/whatsapp-messenger/id310633997";
+      // Try opening Instagram on iOS, with fallback logic
+      const start = Date.now();
+      window.location.href = "instagram://user?username=instagram";
+
+      setTimeout(() => {
+        if (Date.now() - start < 2000) {
+          window.location.href =
+            "https://apps.apple.com/us/app/instagram/id389801252";
+        }
+      }, 1500);
     } else {
       alert("App link not available for your device");
     }
@@ -32,6 +38,9 @@ const MobilePrompt = ({ device, platform }) => {
   const handleClose = () => {
     setModal(false);
   };
+
+  // 🚫 Skip rendering until detection finishes (device is non-empty)
+  if (!device) return null;
 
   return (
     <Modal open={openModal} onClose={handleClose}>
@@ -48,17 +57,11 @@ const MobilePrompt = ({ device, platform }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          maxWidth: "600px",
-          width: "90%",
-          margin: "0 auto",
-          borderTopLeftRadius: "12px",
-          borderTopRightRadius: "12px",
         }}
       >
         <div style={{ fontSize: "18px", fontWeight: "bold" }}>
-          For a better experience, use the app
+          Use WhatsApp for a better experience
         </div>
-
         <div
           style={{
             display: "flex",
@@ -66,33 +69,20 @@ const MobilePrompt = ({ device, platform }) => {
             marginTop: "12px",
             width: "100%",
             justifyContent: "center",
-            flexWrap: "wrap",
           }}
         >
           <Button
             variant="contained"
             color="primary"
-            style={{
-              flex: "1",
-              minWidth: "140px",
-              maxWidth: "250px",
-              padding: "8px",
-              fontSize: "16px",
-            }}
+            style={{ width: "40%" }}
             onClick={handleOpenApp}
           >
-            Use App
+            Open WhatsApp
           </Button>
           <Button
             variant="outlined"
             color="secondary"
-            style={{
-              flex: "1",
-              minWidth: "140px",
-              maxWidth: "250px",
-              padding: "8px",
-              fontSize: "16px",
-            }}
+            style={{ width: "40%" }}
             onClick={handleClose}
           >
             Continue in Web
