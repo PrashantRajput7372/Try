@@ -20,15 +20,13 @@ const MobilePrompt = () => {
       window.location.href =
         "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
     } else if (platform === "iOS") {
-      // Try opening Instagram on iOS, with fallback logic
-      const start = Date.now();
-      window.location.href = "instagram://user?username=instagram";
+      // Try to open Instagram app
+      window.location.href = "instagram://";
 
+      // After short delay, redirect to App Store (fallback)
       setTimeout(() => {
-        if (Date.now() - start < 2000) {
-          window.location.href =
-            "https://apps.apple.com/us/app/instagram/id389801252";
-        }
+        window.location.href =
+          "https://apps.apple.com/app/instagram/id389801252";
       }, 1500);
     } else {
       alert("App link not available for your device");
@@ -60,7 +58,7 @@ const MobilePrompt = () => {
         }}
       >
         <div style={{ fontSize: "18px", fontWeight: "bold" }}>
-          Use WhatsApp for a better experience
+          Use Instagram App for a better experience
         </div>
         <div
           style={{
@@ -77,7 +75,7 @@ const MobilePrompt = () => {
             style={{ width: "40%" }}
             onClick={handleOpenApp}
           >
-            Open WhatsApp
+            Open Instagram App
           </Button>
           <Button
             variant="outlined"
