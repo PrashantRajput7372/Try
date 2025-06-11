@@ -10,21 +10,20 @@ const MobilePrompt = () => {
     if (device === "Mobile") {
       setModal(true);
     } else {
-      setModal(false);
+      setModal(false); // ✅ Close modal if not mobile
     }
   }, [device]);
 
   const handleOpenApp = () => {
+    // const appStoreUrl = "https://apps.apple.com/app/instagram/id389801252";
+    // const appSchemeUrl = "instagram://";
+
     if (platform === "Android") {
-      // Android: use intent URL
       window.location.href =
         "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
     } else if (platform === "iOS") {
-      // iOS: use iframe to avoid invalid URL error
-      const appStoreUrl = "https://apps.apple.com/app/instagram/id389801252";
-      const appScheme = "instagram://";
+      const now = Date.now();
       let hidden = false;
-      const startTime = Date.now();
 
       const onVisibilityChange = () => {
         hidden = document.hidden;
@@ -32,22 +31,17 @@ const MobilePrompt = () => {
 
       document.addEventListener("visibilitychange", onVisibilityChange);
 
-      // Try opening the app via iframe
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = appScheme;
-      document.body.appendChild(iframe);
+      // Open Instagram app
+      window.location.href = "instagram://";
 
-      // Wait 3s, then redirect if app wasn't opened
+      // Fallback to App Store if app didn’t open
       setTimeout(() => {
         document.removeEventListener("visibilitychange", onVisibilityChange);
-        document.body.removeChild(iframe);
-
-        const timeElapsed = Date.now() - startTime;
-        if (!hidden && timeElapsed < 3500) {
-          window.location.href = appStoreUrl;
+        if (!hidden && Date.now() - now < 4000) {
+          window.location.href =
+            "https://apps.apple.com/app/instagram/id389801252";
         }
-      }, 3000);
+      }, 3000); // or try 3000ms if needed
     } else {
       alert("App link not available for your device");
     }
@@ -57,6 +51,7 @@ const MobilePrompt = () => {
     setModal(false);
   };
 
+  // 🚫 Skip rendering until detection finishes (device is non-empty)
   if (!device) return null;
 
   return (
@@ -92,7 +87,7 @@ const MobilePrompt = () => {
             variant="contained"
             color="primary"
             style={{ width: "40%" }}
-            onClick={handleOpenApp} // ✅ user interaction required
+            onClick={handleOpenApp}
           >
             Open Instagram App
           </Button>
