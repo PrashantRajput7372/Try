@@ -70,7 +70,7 @@ const MobilePrompt = () => {
         }}
       >
         <div style={{ fontSize: "18px", fontWeight: "bold" }}>
-          Use Instagram App for a better experience
+          Use mAadhaar App for a better experience
         </div>
         <div
           style={{
@@ -87,7 +87,7 @@ const MobilePrompt = () => {
             style={{ width: "40%" }}
             onClick={handleOpenApp}
           >
-            Open Instagram App
+            Open mAadhaar App
           </Button>
           <Button
             variant="outlined"
