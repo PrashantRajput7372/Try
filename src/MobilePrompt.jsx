@@ -41,7 +41,7 @@ const MobilePrompt = () => {
           window.location.href =
             "https://apps.apple.com/app/instagram/id389801252";
         }
-      }, 3000); // or try 3000ms if needed// or try 3000ms if needed
+      }, 3000); // or try 3000ms if needed
     } else {
       alert("App link not available for your device");
     }
