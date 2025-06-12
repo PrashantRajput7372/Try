@@ -15,8 +15,8 @@ const MobilePrompt = () => {
   }, [device]);
 
   const handleOpenApp = () => {
-    // const appStoreUrl = "https://apps.apple.com/app/instagram/id389801252";
-    // const appSchemeUrl = "instagram://";
+    // const appStoreUrl = "https://apps.apple.com/app/id1435469474";
+    // const appSchemeUrl = "maadhaar://";
 
     if (platform === "Android") {
       window.location.href =
@@ -32,14 +32,14 @@ const MobilePrompt = () => {
       document.addEventListener("visibilitychange", onVisibilityChange);
 
       // Open Instagram app
-      window.location.href = "instagram://";
+      window.location.href = "maadhaar://";
 
       // Fallback to App Store if app didn’t open
       setTimeout(() => {
         document.removeEventListener("visibilitychange", onVisibilityChange);
         if (!hidden && Date.now() - now < 4000) {
           window.location.href =
-            "https://apps.apple.com/app/instagram/id389801252";
+            "https://apps.apple.com/app/id1435469474";
         }
       }, 3000); // or try 3000ms if needed
     } else {
