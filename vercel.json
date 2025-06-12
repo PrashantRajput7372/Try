@@ -7,11 +7,5 @@
         { "key": "Content-Disposition", "value": "inline" }
       ]
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/.well-known/apple-app-site-association",
-      "destination": "/.well-known/apple-app-site-association"
-    }
   ]
 }
