@@ -15,12 +15,10 @@ const MobilePrompt = () => {
   }, [device]);
 
   const handleOpenApp = () => {
-    // const appStoreUrl = "https://apps.apple.com/app/id1435469474";
-    // const appSchemeUrl = "maadhaar://";
-
     if (platform === "Android") {
+      // Try opening Instagram on Android
       window.location.href =
-        "intent://instagram.com/#Intent;package=com.instagram.android;scheme=https;end";
+        'intent://open#Intent;scheme=maadhaar;package=in.gov.uidai.mAadhaarPlus;end';
     } else if (platform === "iOS") {
       const now = Date.now();
       let hidden = false;
@@ -39,9 +37,9 @@ const MobilePrompt = () => {
         document.removeEventListener("visibilitychange", onVisibilityChange);
         if (!hidden && Date.now() - now < 4000) {
           window.location.href =
-            "https://apps.apple.com/app/id1435469474";
+           "https://apps.apple.com/app/id1435469474";
         }
-      }, 3000); // or try 3000ms if needed
+      }, 3000);
     } else {
       alert("App link not available for your device");
     }
