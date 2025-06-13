@@ -5,7 +5,7 @@
       {
         "appID": "J287W8AHQ3.com.Uidai.mAadhaar",
         "paths": [
-          "*",
+          "/*",
           "/extra-path-1/*",
           "/extra-path-2/*",
           "/extra-path-3/*",
