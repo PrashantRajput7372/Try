@@ -1,55 +1,64 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState, useRef } from "react";
 import { Modal, Button } from "@mui/material";
 import useDeviceDetection from "../components/DeviceDetection";
 
 const MobilePrompt = () => {
   const { device, platform } = useDeviceDetection();
   const [openModal, setModal] = useState(false);
+  const appOpenedRef = useRef(false);
+  const timerRef = useRef(null);
 
   useEffect(() => {
     if (device === "Mobile") {
       setModal(true);
     } else {
-      setModal(false); // ✅ Close modal if not mobile
+      setModal(false);
     }
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [device]);
 
-  const handleOpenApp = () => {
-    if (platform === "Android") {
-      // Try opening Instagram on Android
-      window.location.href =
-        'intent://open#Intent;scheme=maadhaar;package=in.gov.uidai.mAadhaarPlus;end';
-    } else if (platform === "iOS") {
-      const now = Date.now();
-      let hidden = false;
-
-      const onVisibilityChange = () => {
-        hidden = document.hidden;
-      };
-
-      document.addEventListener("visibilitychange", onVisibilityChange);
-
-      // Open Instagram app
-      window.location.href = "maadhaar://";
-
-      // Fallback to App Store if app didn’t open
-      setTimeout(() => {
-        document.removeEventListener("visibilitychange", onVisibilityChange);
-        if (!hidden && Date.now() - now < 4000) {
-          window.location.href =
-           "https://apps.apple.com/app/id1435469474";
-        }
-      }, 3000);
-    } else {
-      alert("App link not available for your device");
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      appOpenedRef.current = true;
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      console.log("App opened successfully!");
     }
   };
 
-  const handleClose = () => {
-    setModal(false);
+  const handleOpenApp = () => {
+    console.log("Attempting to open app...");
+
+    if (platform === "Android") {
+      window.location.href =
+        "intent://open#Intent;scheme=maadhaar;package=in.gov.uidai.mAadhaarPlus;end";
+    } else if (platform === "iOS") {
+      appOpenedRef.current = false;
+      const timestamp = Date.now();
+      const universalLink = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${timestamp}`;
+
+      console.log("Using Universal Link:", universalLink);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      // First try: Universal Link
+      window.location.href = universalLink;
+
+      // Fallback to App Store
+      timerRef.current = setTimeout(() => {
+        if (!appOpenedRef.current) {
+          console.log("App not opened, redirecting to App Store");
+          window.location.href = "https://apps.apple.com/app/id1435469474";
+        }
+      }, 1000);
+    }
   };
 
-  // 🚫 Skip rendering until detection finishes (device is non-empty)
+  const handleClose = () => setModal(false);
+
   if (!device) return null;
 
   return (

@@ -4,8 +4,9 @@ const OpenInAppModal = () => {
   const [open, setOpen] = useState(false);
 
   const handleOpenApp = () => {
-    // Universal Link (your domain root)
-    window.location.href = "https://try-ecru-two.vercel.app/";
+    const timestamp = Date.now();
+    // USE EXISTING AASA PATH
+    window.location.href = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${timestamp}`;
   };
 
   return (
@@ -27,14 +28,30 @@ const OpenInAppModal = () => {
       </button>
 
       {open && (
-        <div style={{
-          position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000
-        }}>
-          <div style={{
-            background: "#fff", padding: 32, borderRadius: 10, minWidth: 320, boxShadow: "0 2px 24px 0 rgba(0,0,0,0.2)"
-          }}>
-            <h2 style={{marginTop:0}}>Open in App</h2>
-            <p style={{marginBottom:24}}>Click the button below to open the app on your iPhone.<br />If the app is not installed, this will load the website instead.</p>
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.4)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              padding: 32,
+              borderRadius: 10,
+              minWidth: 320,
+              boxShadow: "0 2px 24px 0 rgba(0,0,0,0.2)",
+            }}
+          >
+            <h2 style={{ marginTop: 0 }}>Open in App</h2>
+            <p style={{ marginBottom: 24 }}>
+              For best experience, open this in the mAadhaar app
+            </p>
             <button
               style={{
                 padding: "12px 24px",
@@ -61,7 +78,7 @@ const OpenInAppModal = () => {
                 fontWeight: "bold",
                 fontSize: "16px",
                 cursor: "pointer",
-                marginLeft: 6
+                marginLeft: 6,
               }}
               onClick={() => setOpen(false)}
             >

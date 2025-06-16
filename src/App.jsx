@@ -1,22 +1,27 @@
 import React from "react";
-// import useDeviceDetection from "../components/DeviceDetection";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MobilePrompt from "./MobilePrompt";
+import UniversalLinkHandler from "./UniversalLinkHandler";
 
 function App() {
-  // const { device, platform } = useDeviceDetection();
-
-  // console.log(`Device: ${device}`);
-  // console.log(`Platform: ${platform}`);
-
   return (
-    <>
-      <div style={{ padding: "40px", textAlign: "center" }}>
-        <h1>Home Page</h1>
-      </div>
-
-      {/* Pass detected device & platform to MobilePrompt */}
-      <MobilePrompt />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/extra-path-1/ulink" element={<UniversalLinkHandler />} />
+        <Route
+          path="*"
+          element={
+            <>
+              <div style={{ padding: "40px", textAlign: "center" }}>
+                <h1>Home Page</h1>
+                <p>Current URL: {window.location.href}</p>
+              </div>
+              <MobilePrompt />
+            </>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
