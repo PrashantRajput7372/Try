@@ -109,7 +109,7 @@ const MobilePrompt = () => {
 
 
  <a
-  href="https://your-universal-link.com"
+  href="https://try-ecru-two.vercel.app/"
   style={{
     display: "inline-block",
     padding: "12px 24px",
