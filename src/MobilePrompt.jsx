@@ -73,54 +73,56 @@ const MobilePrompt = () => {
           }}
         >
           {platform === "iOS" ? (
-            <a
-              href="https://try-ecru-two.vercel.app/extra-path-1/ulink"
-              onClick={() => {
-                appOpenedRef.current = false;
-                document.addEventListener(
-                  "visibilitychange",
-                  handleVisibilityChange
-                );
-                setTimeout(() => {
-                  if (!appOpenedRef.current) {
-                    console.log("App not opened, redirecting to App Store");
-                    window.location.href =
-                      "https://apps.apple.com/app/id1435469474";
-                  }
-                }, 3000);
-              }}
-              style={{
-                width: "40%",
-                padding: "8px 16px",
-                backgroundColor: "#1976d2",
-                color: "#fff",
-                borderRadius: "4px",
-                textAlign: "center",
-                fontWeight: "bold",
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              Open mAadhaar App
-            </a>
+            // <a
+            //   href="https://try-ecru-two.vercel.app/extra-path-1/ulink"
+            //   onClick={() => {
+            //     appOpenedRef.current = false;
+            //     document.addEventListener(
+            //       "visibilitychange",
+            //       handleVisibilityChange
+            //     );
+            //     setTimeout(() => {
+            //       if (!appOpenedRef.current) {
+            //         console.log("App not opened, redirecting to App Store");
+            //         window.location.href =
+            //           "https://apps.apple.com/app/id1435469474";
+            //       }
+            //     }, 3000);
+            //   }}
+            //   style={{
+            //     width: "40%",
+            //     padding: "8px 16px",
+            //     backgroundColor: "#1976d2",
+            //     color: "#fff",
+            //     borderRadius: "4px",
+            //     textAlign: "center",
+            //     fontWeight: "bold",
+            //     textDecoration: "none",
+            //     display: "flex",
+            //     alignItems: "center",
+            //     justifyContent: "center",
+            //   }}
+            // >
+            //   Open mAadhaar App
+            // </a>
 
 
 
- <a href="https://try-ecru-two.vercel.app/extra-path-1/ulink" style={{
-                width: "40%",
-                padding: "8px 16px",
-                backgroundColor: "#1976d2",
-                color: "#fff",
-                borderRadius: "4px",
-                textAlign: "center",
-                fontWeight: "bold",
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}> Open APP</a>
+ <a
+  href="https://your-universal-link.com"
+  style={{
+    display: "inline-block",
+    padding: "12px 24px",
+    backgroundColor: "#1976d2",
+    color: "#fff",
+    borderRadius: "4px",
+    textDecoration: "none",
+    fontWeight: "bold",
+  }}
+>
+  Open mAadhaar App
+</a>
+
           ) : (
             <Button
               variant="contained"
