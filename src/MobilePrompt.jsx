@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from "react";
 import { Modal, Button } from "@mui/material";
 import useDeviceDetection from "../components/DeviceDetection";
@@ -36,6 +35,24 @@ const MobilePrompt = () => {
     if (platform === "Android") {
       window.location.href =
         "intent://open#Intent;scheme=maadhaar;package=in.gov.uidai.mAadhaarPlus;end";
+    } else if (platform === "iOS") {
+      appOpenedRef.current = false;
+      const timestamp = Date.now();
+      const universalLink = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${timestamp}`;
+
+      console.log("Using Universal Link:", universalLink);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      // First try: Universal Link
+      window.location.href = universalLink;
+
+      // Fallback to App Store
+      timerRef.current = setTimeout(() => {
+        if (!appOpenedRef.current) {
+          console.log("App not opened, redirecting to App Store");
+          window.location.href = "https://apps.apple.com/app/id1435469474";
+        }
+      }, 1000);
     }
   };
 
@@ -72,67 +89,14 @@ const MobilePrompt = () => {
             justifyContent: "center",
           }}
         >
-          {platform === "iOS" ? (
-            // <a
-            //   href="https://try-ecru-two.vercel.app/extra-path-1/ulink"
-            //   onClick={() => {
-            //     appOpenedRef.current = false;
-            //     document.addEventListener(
-            //       "visibilitychange",
-            //       handleVisibilityChange
-            //     );
-            //     setTimeout(() => {
-            //       if (!appOpenedRef.current) {
-            //         console.log("App not opened, redirecting to App Store");
-            //         window.location.href =
-            //           "https://apps.apple.com/app/id1435469474";
-            //       }
-            //     }, 3000);
-            //   }}
-            //   style={{
-            //     width: "40%",
-            //     padding: "8px 16px",
-            //     backgroundColor: "#1976d2",
-            //     color: "#fff",
-            //     borderRadius: "4px",
-            //     textAlign: "center",
-            //     fontWeight: "bold",
-            //     textDecoration: "none",
-            //     display: "flex",
-            //     alignItems: "center",
-            //     justifyContent: "center",
-            //   }}
-            // >
-            //   Open mAadhaar App
-            // </a>
-
-
-
- <a
-  href="https://try-ecru-two.vercel.app/"
-  style={{
-    display: "inline-block",
-    padding: "12px 24px",
-    backgroundColor: "#1976d2",
-    color: "#fff",
-    borderRadius: "4px",
-    textDecoration: "none",
-    fontWeight: "bold",
-  }}
->
-  Open mAadhaar App
-</a>
-
-          ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ width: "40%" }}
-              onClick={handleOpenApp}
-            >
-              Open mAadhaar App
-            </Button>
-          )}
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ width: "40%" }}
+            onClick={handleOpenApp}
+          >
+            Open mAadhaar App
+          </Button>
           <Button
             variant="outlined"
             color="secondary"
