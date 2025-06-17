@@ -38,8 +38,8 @@ const MobilePrompt = () => {
         "intent://open#Intent;scheme=maadhaar;package=in.gov.uidai.mAadhaarPlus;end";
     } else if (platform === "iOS") {
       appOpenedRef.current = false;
-      const timestamp = Date.now();
-      const universalLink = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${timestamp}`;
+      // const timestamp = Date.now();
+      const universalLink = `https://try-ecru-two.vercel.app/extra-path-1/ulink`;
 
       console.log("Using Universal Link:", universalLink);
       document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -53,7 +53,7 @@ const MobilePrompt = () => {
           console.log("App not opened, redirecting to App Store");
           window.location.href = "https://apps.apple.com/app/id1435469474";
         }
-      }, 1000);
+      }, 3000);
     }
   };
 
