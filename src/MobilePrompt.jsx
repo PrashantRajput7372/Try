@@ -56,17 +56,6 @@ const MobilePrompt = () => {
     }
   };
 
-  const buttonStyle ={
-     width: "40%",
-  backgroundColor: "#1976d2",
-  color: "white",
-  padding: "10px 12px",
-  borderRadius: "4px",
-  textDecoration: "none",
-  display: "inline-block",
-  textAlign: "center",
-  }
-
   const handleClose = () => setModal(false);
 
   if (!device) return null;
@@ -100,23 +89,14 @@ const MobilePrompt = () => {
             justifyContent: "center",
           }}
         >
-         {platform === "iOS" ? (
-  <a
-    href="https://try-ecru-two.vercel.app/extra-path-1/ulink"
-    style={buttonStyle}
-  >
-    Open mAadhaar (Anchor)
-  </a>
-) : (
-  <Button
-    variant="contained"
-    color="primary"
-    style={{ width: "40%" }}
-    onClick={handleOpenApp}
-  >
-    Open mAadhaar App
-  </Button>
-)}
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ width: "40%" }}
+            onClick={handleOpenApp}
+          >
+            Open mAadhaar App
+          </Button>
           <Button
             variant="outlined"
             color="secondary"
