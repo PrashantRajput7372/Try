@@ -89,14 +89,23 @@ const MobilePrompt = () => {
             justifyContent: "center",
           }}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ width: "40%" }}
-            onClick={handleOpenApp}
-          >
-            Open mAadhaar App
-          </Button>
+         {platform === "iOS" ? (
+  <a
+    href="https://try-ecru-two.vercel.app/extra-path-1/ulink"
+    style={buttonStyle}
+  >
+    Open mAadhaar (Anchor)
+  </a>
+) : (
+  <Button
+    variant="contained"
+    color="primary"
+    style={{ width: "40%" }}
+    onClick={handleOpenApp}
+  >
+    Open mAadhaar App
+  </Button>
+)}
           <Button
             variant="outlined"
             color="secondary"
