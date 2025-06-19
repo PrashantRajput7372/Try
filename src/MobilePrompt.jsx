@@ -56,6 +56,17 @@ const MobilePrompt = () => {
     }
   };
 
+  const buttonStyle ={
+     width: "40%",
+  backgroundColor: "#1976d2",
+  color: "white",
+  padding: "10px 12px",
+  borderRadius: "4px",
+  textDecoration: "none",
+  display: "inline-block",
+  textAlign: "center",
+  }
+
   const handleClose = () => setModal(false);
 
   if (!device) return null;
