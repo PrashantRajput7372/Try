@@ -16,7 +16,7 @@ const UniversalLinkHandler = () => {
   }, []);
 
   return (
-   return (
+
   <div style={{ padding: 40, textAlign: "center" }}>
     {/* Embedded spinner styles */}
     <style>{`
