@@ -5,32 +5,44 @@ const UniversalLinkHandler = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log("Universal Link Triggered:", window.location.href);
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        console.log("App opened successfully!");
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      }
+    };
 
-    // Attempt to open the app by navigating to the universal link.
-    // The AASA file on your domain should enable iOS to associate the link with your app.
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Trigger the universal link redirection
+    window.location.href = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${Date.now()}`;
+
+    // Fallback timeout for App Store redirection
     const timer = setTimeout(() => {
       console.log("App not opened, redirecting to App Store");
       window.location.href = "https://apps.apple.com/app/id1435469474";
     }, 1500);
 
-    return () => clearTimeout(timer);
+    // Cleanup function to clear the timeout and remove event listener
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
   return (
     <div style={{ padding: 40, textAlign: "center" }}>
       <h2>Redirecting to mAadhaar App...</h2>
       <p>
-        If the redirection doesn’t happen automatically,{" "}
-        <a href="https://apps.apple.com/app/id1435469474">
-          click here to open App Store.
-        </a>
+        If redirection doesn’t happen automatically,{" "}
+        <a href="https://apps.apple.com/app/id1435469474">click here</a>.
       </p>
     </div>
   );
 };
 
 export default UniversalLinkHandler;
+
 
 
 
