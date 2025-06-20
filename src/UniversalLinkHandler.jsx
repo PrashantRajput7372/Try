@@ -1,27 +1,47 @@
-useEffect(() => {
-  const handleVisibilityChange = () => {
-    if (document.hidden) {
-      console.log("App opened successfully!");
+import React, { useEffect } from "react";
+
+const UniversalLinkHandler = () => {
+  useEffect(() => {
+    // Listener to detect if the app has been opened (document goes hidden)
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        console.log("App opened successfully!");
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Trigger the universal link redirection with a timestamp to avoid caching issues.
+    window.location.href = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${Date.now()}`;
+
+    // Fallback: after 1.5 seconds, if the app hasn't opened (i.e. document hasn't become hidden),
+    // redirect to the App Store.
+    const timer = setTimeout(() => {
+      console.log("App not opened, redirecting to App Store");
+      window.location.href = "https://apps.apple.com/app/id1435469474";
+    }, 1500);
+
+    // Cleanup function: clear the timer and remove the event listener on unmount.
+    return () => {
+      clearTimeout(timer);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-    }
-  };
+    };
+  }, []);
 
-  document.addEventListener("visibilitychange", handleVisibilityChange);
+  return (
+    <div style={{ padding: "40px", textAlign: "center" }}>
+      <h2>Redirecting to mAadhaar App...</h2>
+      <p>
+        If redirection doesn’t happen automatically,{" "}
+        <a href="https://apps.apple.com/app/id1435469474">click here</a>.
+      </p>
+    </div>
+  );
+};
 
-  // Trigger the universal link redirection
-  window.location.href = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${Date.now()}`;
+export default UniversalLinkHandler;
 
-  // Fallback timeout for App Store redirection
-  const timer = setTimeout(() => {
-    console.log("App not opened, redirecting to App Store");
-    window.location.href = "https://apps.apple.com/app/id1435469474";
-  }, 1500);
-
-  return () => {
-    clearTimeout(timer);
-    document.removeEventListener("visibilitychange", handleVisibilityChange);
-  };
-}, []);
 
 
 // import React, { useEffect, useRef } from "react";
