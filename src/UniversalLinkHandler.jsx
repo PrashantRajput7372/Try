@@ -1,12 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 const UniversalLinkHandler = () => {
+  const timerRef = useRef(null);
+  const appOpenedRef = useRef(false);
   const location = useLocation();
 
   useEffect(() => {
+    // Use a query parameter (attempted=1) to check if redirection was already attempted
+    if (window.location.search.includes("attempted=1")) {
+      console.log("Redirection already attempted; not triggering again.");
+      return;
+    }
+    
+    // Update the URL (without reloading) to signal that redirection is attempted.
+    // This prevents the redirection code from running again on reload.
+    const updatedURL = `${window.location.pathname}?attempted=1`;
+    window.history.replaceState(null, "", updatedURL);
+
     const handleVisibilityChange = () => {
       if (document.hidden) {
+        appOpenedRef.current = true;
         console.log("App opened successfully!");
         document.removeEventListener("visibilitychange", handleVisibilityChange);
       }
@@ -14,21 +28,28 @@ const UniversalLinkHandler = () => {
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // Trigger the universal link redirection
-    window.location.href = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${Date.now()}`;
+    // Construct the universal link with a timestamp
+    const timestamp = Date.now();
+    const universalLink = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${timestamp}&attempted=1`;
+    console.log("Triggering Universal Link:", universalLink);
 
-    // Fallback timeout for App Store redirection
-    const timer = setTimeout(() => {
-      console.log("App not opened, redirecting to App Store");
-      window.location.href = "https://apps.apple.com/app/id1435469474";
+    // Trigger redirection; this should open the app if installed.
+    window.location.href = universalLink;
+
+    // Set a fallback timer for App Store redirection if the app isn’t opened
+    timerRef.current = setTimeout(() => {
+      if (!appOpenedRef.current) {
+        console.log("App not opened, redirecting to App Store.");
+        window.location.href = "https://apps.apple.com/app/id1435469474";
+      }
     }, 1500);
 
-    // Cleanup function to clear the timeout and remove event listener
+    // Clean up on unmount
     return () => {
-      clearTimeout(timer);
+      clearTimeout(timerRef.current);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [location]);
 
   return (
     <div style={{ padding: 40, textAlign: "center" }}>
@@ -42,6 +63,7 @@ const UniversalLinkHandler = () => {
 };
 
 export default UniversalLinkHandler;
+
 
 
 
