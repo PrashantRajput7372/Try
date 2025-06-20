@@ -1,40 +1,30 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const UniversalLinkHandler = () => {
+  const location = useLocation();
+
   useEffect(() => {
-    // Listener to detect if the app has been opened (document goes hidden)
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        console.log("App opened successfully!");
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-      }
-    };
+    console.log("Universal Link Triggered:", window.location.href);
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    // Trigger the universal link redirection with a timestamp to avoid caching issues.
-    window.location.href = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${Date.now()}`;
-
-    // Fallback: after 1.5 seconds, if the app hasn't opened (i.e. document hasn't become hidden),
-    // redirect to the App Store.
+    // Attempt to open the app by navigating to the universal link.
+    // The AASA file on your domain should enable iOS to associate the link with your app.
     const timer = setTimeout(() => {
       console.log("App not opened, redirecting to App Store");
       window.location.href = "https://apps.apple.com/app/id1435469474";
     }, 1500);
 
-    // Cleanup function: clear the timer and remove the event listener on unmount.
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
+    <div style={{ padding: 40, textAlign: "center" }}>
       <h2>Redirecting to mAadhaar App...</h2>
       <p>
-        If redirection doesn’t happen automatically,{" "}
-        <a href="https://apps.apple.com/app/id1435469474">click here</a>.
+        If the redirection doesn’t happen automatically,{" "}
+        <a href="https://apps.apple.com/app/id1435469474">
+          click here to open App Store.
+        </a>
       </p>
     </div>
   );
