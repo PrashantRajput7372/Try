@@ -15,13 +15,15 @@ function App() {
         <Route
           path="*"
           element={
-            <div style={{ padding: "40px", textAlign: "center" }}>
+            <>            <div style={{ padding: "40px", textAlign: "center" }}>
               <h1>Universal Link Domain</h1>
               <p>
                 This domain is solely used for hosting the apple-app-site-association file and handling deep link redirection.
               </p>
             </div>
             <MobilePrompt />
+              </>
+
           }
         />
       </Routes>
