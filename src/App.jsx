@@ -1,6 +1,8 @@
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UniversalLinkHandler from "./UniversalLinkHandler";
+import MobilePrompt from "./MobilePrompt";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
                 This domain is solely used for hosting the apple-app-site-association file and handling deep link redirection.
               </p>
             </div>
+            <MobilePrompt />
           }
         />
       </Routes>
