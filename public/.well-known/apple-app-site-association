@@ -5,9 +5,17 @@
       {
         "appID": "JM56XFTHH7.com.Uidai.mAadhaar",
         "paths": [
-          
+           "/*",
           "/extra-path-1/*",
-          
+          "/extra-path-2/*",
+          "/extra-path-3/*",
+          "/extra-path-4/*",
+          "/extra-path-5/*",
+          "/info/about/*",
+          "/help/*",
+          "/faq/*",
+          "/account/settings/*",
+          "/account/profile/*"
         ]
       }
     ]
