@@ -1,71 +1,97 @@
-import React, { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
-
-const UniversalLinkHandler = () => {
-  const timerRef = useRef(null);
-  const appOpenedRef = useRef(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    // Use a query parameter (attempted=1) to check if redirection was already attempted
-    if (window.location.search.includes("attempted=1")) {
-      console.log("Redirection already attempted; not triggering again.");
-      return;
-    }
-    
-    // Update the URL (without reloading) to signal that redirection is attempted.
-    // This prevents the redirection code from running again on reload.
-    const updatedURL = `${window.location.pathname}?attempted=1`;
-    window.history.replaceState(null, "", updatedURL);
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        appOpenedRef.current = true;
-        console.log("App opened successfully!");
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    // Construct the universal link with a timestamp
-    const timestamp = Date.now();
-    const universalLink = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${timestamp}&attempted=1`;
-    console.log("Triggering Universal Link:", universalLink);
-
-    // Trigger redirection; this should open the app if installed.
-    window.location.href = universalLink;
-
-    // Set a fallback timer for App Store redirection if the app isn’t opened
-    timerRef.current = setTimeout(() => {
-      if (!appOpenedRef.current) {
-        console.log("App not opened, redirecting to App Store.");
-        window.location.href = "https://apps.apple.com/app/id1435469474";
-      }
-    }, 1500);
-
-    // Clean up on unmount
-    return () => {
-      clearTimeout(timerRef.current);
+useEffect(() => {
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      console.log("App opened successfully!");
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [location]);
+    }
+  };
 
-  return (
-    <div style={{ padding: 40, textAlign: "center" }}>
-      <h2>Redirecting to mAadhaar App...</h2>
-      <p>
-        If redirection doesn’t happen automatically,{" "}
-        <a href="https://apps.apple.com/app/id1435469474">click here</a>.
-      </p>
-    </div>
-  );
-};
+  document.addEventListener("visibilitychange", handleVisibilityChange);
 
-export default UniversalLinkHandler;
+  // Trigger the universal link redirection
+  window.location.href = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${Date.now()}`;
+
+  // Fallback timeout for App Store redirection
+  const timer = setTimeout(() => {
+    console.log("App not opened, redirecting to App Store");
+    window.location.href = "https://apps.apple.com/app/id1435469474";
+  }, 1500);
+
+  return () => {
+    clearTimeout(timer);
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+  };
+}, []);
 
 
+// import React, { useEffect, useRef } from "react";
+// import { useLocation } from "react-router-dom";
 
+// const UniversalLinkHandler = () => {
+//   const timerRef = useRef(null);
+//   const appOpenedRef = useRef(false);
+//   const location = useLocation();
+
+//   useEffect(() => {
+//     // Use a query parameter (attempted=1) to check if redirection was already attempted
+//     if (window.location.search.includes("attempted=1")) {
+//       console.log("Redirection already attempted; not triggering again.");
+//       return;
+//     }
+    
+//     // Update the URL (without reloading) to signal that redirection is attempted.
+//     // This prevents the redirection code from running again on reload.
+//     const updatedURL = `${window.location.pathname}?attempted=1`;
+//     window.history.replaceState(null, "", updatedURL);
+
+//     const handleVisibilityChange = () => {
+//       if (document.hidden) {
+//         appOpenedRef.current = true;
+//         console.log("App opened successfully!");
+//         document.removeEventListener("visibilitychange", handleVisibilityChange);
+//       }
+//     };
+
+//     document.addEventListener("visibilitychange", handleVisibilityChange);
+
+//     // Construct the universal link with a timestamp
+//     const timestamp = Date.now();
+//     const universalLink = `https://try-ecru-two.vercel.app/extra-path-1/ulink?t=${timestamp}&attempted=1`;
+//     console.log("Triggering Universal Link:", universalLink);
+
+//     // Trigger redirection; this should open the app if installed.
+//     window.location.href = universalLink;
+
+//     // Set a fallback timer for App Store redirection if the app isn’t opened
+//     timerRef.current = setTimeout(() => {
+//       if (!appOpenedRef.current) {
+//         console.log("App not opened, redirecting to App Store.");
+//         window.location.href = "https://apps.apple.com/app/id1435469474";
+//       }
+//     }, 1500);
+
+//     // Clean up on unmount
+//     return () => {
+//       clearTimeout(timerRef.current);
+//       document.removeEventListener("visibilitychange", handleVisibilityChange);
+//     };
+//   }, [location]);
+
+//   return (
+//     <div style={{ padding: 40, textAlign: "center" }}>
+//       <h2>Redirecting to mAadhaar App...</h2>
+//       <p>
+//         If redirection doesn’t happen automatically,{" "}
+//         <a href="https://apps.apple.com/app/id1435469474">click here</a>.
+//       </p>
+//     </div>
+//   );
+// };
+
+// export default UniversalLinkHandler;
+
+
+//which was working fine 
 
 // import React, { useEffect } from "react";
 // import { useLocation } from "react-router-dom";
